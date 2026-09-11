@@ -16,6 +16,7 @@ public class CalendarServiceImpl implements CalendarService{
 
     @Override
     public void printCalendarInfo(){
+        System.out.println("Год: " + this.calendar.get(Calendar.YEAR) + "\n" + "Статус: " + printLeapInfo(this.calendar.get(Calendar.YEAR)));
         for(int i = 1; i < 13; i++){
             getMonthInfo();
         }
@@ -26,18 +27,18 @@ public class CalendarServiceImpl implements CalendarService{
 
             case Calendar.JANUARY , Calendar.MARCH , Calendar.MAY , Calendar.JULY , Calendar.AUGUST , Calendar.OCTOBER , Calendar.DECEMBER:
                 System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
-                for(int i = 1; i < 32;  i++){
-                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
+                for(int i = 0; i < 31;  i++){
                     System.out.println(calendar.getTime());
+                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
                 }
                 calendar.roll(Calendar.MONTH, 1);
                 break;
 
             case Calendar.APRIL , Calendar.JUNE , Calendar.SEPTEMBER , Calendar.NOVEMBER:
                 System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
-                for(int i = 1; i < 31;  i++){
-                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
+                for(int i = 0; i < 30;  i++){
                     System.out.println(calendar.getTime());
+                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
                 }
                 calendar.roll(Calendar.MONTH, 1);
                 break;
@@ -46,15 +47,15 @@ public class CalendarServiceImpl implements CalendarService{
 
                 System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
                 if(isLeap(this.calendar.get(Calendar.YEAR))) {
-                    for (int i = 1; i < 29; i++) {
-                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
+                    for (int i = 0; i < 29; i++) {
                         System.out.println(calendar.getTime());
+                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
                     }
                 }
                 else{
-                    for (int i = 1; i < 28; i++) {
-                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
+                    for (int i = 0; i < 28; i++) {
                         System.out.println(calendar.getTime());
+                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
                     }
                 }
                 calendar.roll(Calendar.MONTH, 1);
@@ -70,5 +71,13 @@ public class CalendarServiceImpl implements CalendarService{
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
+    private static String printLeapInfo(int year){
+        if(isLeap(year)){
+            return "Високосный";
+        }
+        else{
+            return "Не високосный";
+        }
+    }
 
 }
