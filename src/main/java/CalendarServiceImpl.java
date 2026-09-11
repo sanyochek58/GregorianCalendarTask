@@ -16,7 +16,7 @@ public class CalendarServiceImpl implements CalendarService{
 
     /**
      * Метод геттер, возвращает текущий объект с типом Calendar
-     * @return
+     * @return - возвращает текущий объект calendar
      */
     public Calendar getCalendar(){
         return this.calendar;
