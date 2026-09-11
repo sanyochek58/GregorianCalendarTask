@@ -26,39 +26,15 @@ public class CalendarServiceImpl implements CalendarService{
         switch(this.calendar.get(Calendar.MONTH)){
 
             case Calendar.JANUARY , Calendar.MARCH , Calendar.MAY , Calendar.JULY , Calendar.AUGUST , Calendar.OCTOBER , Calendar.DECEMBER:
-                System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
-                for(int i = 0; i < 31;  i++){
-                    System.out.println(calendar.getTime());
-                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
-                }
-                calendar.roll(Calendar.MONTH, 1);
+                pipelinePrintMonthInfo(31);
                 break;
 
             case Calendar.APRIL , Calendar.JUNE , Calendar.SEPTEMBER , Calendar.NOVEMBER:
-                System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
-                for(int i = 0; i < 30;  i++){
-                    System.out.println(calendar.getTime());
-                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
-                }
-                calendar.roll(Calendar.MONTH, 1);
+                pipelinePrintMonthInfo(30);
                 break;
 
             case Calendar.FEBRUARY:
-
-                System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
-                if(isLeap(this.calendar.get(Calendar.YEAR))) {
-                    for (int i = 0; i < 29; i++) {
-                        System.out.println(calendar.getTime());
-                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
-                    }
-                }
-                else{
-                    for (int i = 0; i < 28; i++) {
-                        System.out.println(calendar.getTime());
-                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
-                    }
-                }
-                calendar.roll(Calendar.MONTH, 1);
+                pipelinePrintMonthInfo(isLeap(this.calendar.get(Calendar.YEAR)) ? 29 : 28);
                 break;
 
             default:
@@ -66,6 +42,20 @@ public class CalendarServiceImpl implements CalendarService{
                 break;
         };
     }
+
+    private void pipelinePrintMonthInfo(int daysInMonth){
+        System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
+        printInfoTimeAndPlusDayPipeline(daysInMonth);
+        calendar.roll(Calendar.MONTH, 1);
+    }
+
+    private void printInfoTimeAndPlusDayPipeline(int n){
+        for(int i = 0; i < n; i++){
+            System.out.println(calendar.getTime());
+            calendar.roll(Calendar.DAY_OF_MONTH, 1);
+        }
+    }
+
 
     private static boolean isLeap(int year){
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
