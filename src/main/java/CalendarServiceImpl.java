@@ -1,5 +1,4 @@
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class CalendarServiceImpl implements CalendarService{
@@ -8,6 +7,7 @@ public class CalendarServiceImpl implements CalendarService{
 
     public CalendarServiceImpl(int year){
         this.calendar = new GregorianCalendar(year, Calendar.JANUARY, 1);
+        calendar.setLenient(true);
     }
 
     public Calendar getCalendar(){
@@ -43,11 +43,19 @@ public class CalendarServiceImpl implements CalendarService{
                 break;
 
             case Calendar.FEBRUARY:
-                // TODO( Реализовать функцию проверки на високосный год )
+
                 System.out.println("Месяц: " + this.calendar.get(Calendar.MONTH));
-                for(int i = 1; i < 29;  i++){
-                    calendar.roll(Calendar.DAY_OF_MONTH, 1);
-                    System.out.println(calendar.getTime());
+                if(isLeap(this.calendar.get(Calendar.YEAR))) {
+                    for (int i = 1; i < 29; i++) {
+                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
+                        System.out.println(calendar.getTime());
+                    }
+                }
+                else{
+                    for (int i = 1; i < 28; i++) {
+                        calendar.roll(Calendar.DAY_OF_MONTH, 1);
+                        System.out.println(calendar.getTime());
+                    }
                 }
                 calendar.roll(Calendar.MONTH, 1);
                 break;
@@ -56,6 +64,10 @@ public class CalendarServiceImpl implements CalendarService{
                 System.out.println("Таких месяцев нет !");
                 break;
         };
+    }
+
+    private static boolean isLeap(int year){
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
 
