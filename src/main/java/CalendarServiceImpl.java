@@ -40,7 +40,7 @@ public class CalendarServiceImpl implements CalendarService{
             default:
                 System.out.println("Таких месяцев нет !");
                 break;
-        };
+        }
     }
 
     private void pipelinePrintMonthInfo(int daysInMonth){
@@ -57,11 +57,11 @@ public class CalendarServiceImpl implements CalendarService{
     }
 
 
-    private static boolean isLeap(int year){
+    public static boolean isLeap(int year){
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    private static String printLeapInfo(int year){
+    public static String printLeapInfo(int year){
         if(isLeap(year)){
             return "Високосный";
         }
