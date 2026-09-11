@@ -3,6 +3,10 @@ import java.util.GregorianCalendar;
 
 public class CalendarServiceImpl implements CalendarService{
 
+    private static final String[] DAY_OF_WEEK_NAMES = {
+            "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"
+    };
+
     private final Calendar calendar;
 
     /**
@@ -81,6 +85,18 @@ public class CalendarServiceImpl implements CalendarService{
         }
     }
 
+
+    /**
+     * Метод getDayOfWeek - Метод, который определяет день недели по номеру дня и номеру месяца для года, заданного в конструкторе
+     * @param day - Параметр "День", номер дня месяца (1-31)
+     * @param month - Параметр "Месяц", номер месяца (1-12)
+     * @return - название дня недели на русском языке
+     */
+    @Override
+    public String getDayOfWeek(int day, int month){
+        Calendar temp = new GregorianCalendar(this.calendar.get(Calendar.YEAR), month - 1, day);
+        return DAY_OF_WEEK_NAMES[(temp.get(Calendar.DAY_OF_WEEK) - 1)];
+    }
 
     /**
      * Метод isLeap - Метод, который проверяет год на високосность

@@ -88,4 +88,40 @@ public class CalendarServiceImplTest {
         assertNotEquals("Високосный",  CalendarServiceImpl.printLeapInfo(2001));
     }
 
+    /**
+     * Метод testGetDayOfWeek_firstOfYear - Метод, который проверяет день недели для 1 января 1601 года
+     */
+    @Test
+    @DisplayName("01.01.1601 - понедельник")
+    public void testGetDayOfWeek_firstOfYear(){
+        assertEquals("Понедельник", calendarService.getDayOfWeek(1, 1));
+    }
+
+    /**
+     * Метод testGetDayOfWeek_midYear - Метод, который проверяет день недели для 12 июня 1601 года
+     */
+    @Test
+    @DisplayName("12.06.1601 - вторник")
+    public void testGetDayOfWeek_midYear(){
+        assertEquals("Вторник", calendarService.getDayOfWeek(12, 6));
+    }
+
+    /**
+     * Метод testGetDayOfWeek_lastOfYear - Метод, который проверяет день недели для 31 декабря 1601 года
+     */
+    @Test
+    @DisplayName("31.12.1601 - понедельник")
+    public void testGetDayOfWeek_lastOfYear(){
+        assertEquals("Понедельник", calendarService.getDayOfWeek(31, 12));
+    }
+
+    /**
+     * Метод testGetDayOfWeek_leapDayInNonLeapYear - Метод, который проверяет, что 29 февраля в не високосном 1601 году
+     * корректно переносится календарём на 1 марта (setLenient(true))
+     */
+    @Test
+    @DisplayName("29.02.1601 в не високосном году переносится на 01.03 - четверг")
+    public void testGetDayOfWeek_leapDayInNonLeapYear(){
+        assertEquals("Четверг", calendarService.getDayOfWeek(29, 2));
+    }
 }
